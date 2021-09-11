@@ -1,0 +1,8 @@
+{
+  "name": "DATA_SCIENCE",
+  "version": "1.0.0",
+  "dependencies": {},
+  "scripts": {
+    "start": "python3 01_INTRO/intro.py"
+  }
+}
