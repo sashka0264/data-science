@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+# Не работали русские буквы
+import sys
+sys.path.append("/Users/a18826700/Library/Python/3.9/lib/python/site-packages")
+from colorama import Fore, Back, Style
+# Не подключался установленный пакет colorama
 import math
 
 # Введение
@@ -14,6 +19,7 @@ print('Hello, my name is ' + MY_REAL_NAME)
 print('Number is string - ' + str(math.floor(-NUMBER_ONE)))
 
 # Тупой калькулятор
+print ( Back.RED )
 what = raw_input('Удалить или вычесть (+/-)? ')
 a = int(raw_input('Первое число: '))
 b = int(raw_input('Второе число: '))
