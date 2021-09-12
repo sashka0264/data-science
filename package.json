@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "dependencies": {},
   "scripts": {
-    "start": "python3 01_INTRO/intro.py"
+    "start": "python3 -i 00_PYTHON/pynder.py"
   }
 }
