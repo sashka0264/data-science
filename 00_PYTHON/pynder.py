@@ -58,10 +58,20 @@ def messaging():
             driver.find_element_by_tag_name('textarea').send_keys(mtx)
 
 OPTIONS = {
+    # Количество желаемых лайков.
+    'likes_limit': 100,
+
+    # Пауза между свайпами в секундах, к значению добавляется рандомное число от 0.0 до 1.0 исключительно.
+    'pause_between_swipes': 2,
+
+    # Набор текстов для первого сообщения, бот автоматически пишет:
+    # 'Привет, {имя из анкеты}. {text_message}'.
+    # Если text_message установить как пустую строку, то бот никому не пишет.
+    'text_message': 'Привет, приятные фотографии! Напиши телеграм, тут просто очень редко бываю.',
+
+    # Лимит по совершенным ошибкам. По окончанию этого лимита бот завершает работу и отправляет результаты.
     'error_signals_limit': 30,
-    'likes_limit': 10,
-    'speed': 2,
-    'text_message': 'Привет, приятные фото. :) Напиши телеграм, тут просто очень редко бываю.',
+
     '_implicitly_wait': 3,
     '_url': 'https://tinder.com',
     '_start_time': datetime.datetime.today()
@@ -124,12 +134,11 @@ class TinderAI(object):
             self.error_logs.append('search_key_message')
 
     def send_results(self):
-        l = 'Likes: ' + str(self.likes) + '\n'
+        likes_rt = 'Likes: ' + str(self.likes) + '\n'
         d = 'Dislikes: ' + str(self.dislikes) + '\n'
         st = 'Session time: ' + str(datetime.datetime.today() - self.options['_start_time']) + '\n'
         logs = 'Error logs: ' + str(self.error_logs) + '\n'
-        print(l + d + logs + st)
-        send(l + d + logs + st)
+        send(likes_rt + d + logs + st)
 
     def start_swiping(self):
         self.driver.get(self.options['_url'])
@@ -158,7 +167,7 @@ class TinderAI(object):
                         print('dislike', self.dislikes)
 
                 self.error_signals = 0
-                time.sleep(self.options['speed'] + random.random())
+                time.sleep(self.options['pause_between_swipes'] + random.random())
             except:
                 if self.error_signals == self.options['error_signals_limit']:
                     self.error_logs.append('start_swiping')
